@@ -1,5 +1,9 @@
 name: Build Forge mod
 
+concurrency:
+  group: giznaz-build-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
   pull_request:
