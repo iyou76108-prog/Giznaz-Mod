@@ -1,0 +1,46 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+
+group = 'com.giznaz'
+version = '1.0.0'
+base { archivesName = 'Giznaz-Mod' }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+minecraft {
+    mappings channel: 'official', version: '1.21.1'
+    copyIdeResources = true
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'info'
+            mods { giznaz { source sourceSets.main } }
+        }
+        client {}
+        server { args '--nogui' }
+    }
+}
+
+repositories {}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.21.1-52.1.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    def replaceProperties = [mod_id: 'giznaz', mod_name: 'Giznaz', mod_license: 'MIT',
+        mod_version: project.version, mod_authors: 'Giznaz', mod_description: 'A silly village and pig-themed Minecraft mod.']
+    inputs.properties replaceProperties
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties
+    }
+}
