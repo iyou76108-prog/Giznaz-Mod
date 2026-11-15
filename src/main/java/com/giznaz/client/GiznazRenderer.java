@@ -2,13 +2,14 @@ package com.giznaz.client;
 
 import com.giznaz.GiznazMod;
 import com.giznaz.entity.GiznazEntity;
-import com.giznaz.entity.PoopProjectile;
-import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.resources.ResourceLocation;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,9 +29,9 @@ public final class GiznazRenderer {
                 context -> new ThrownItemRenderer<>(context, 0.8F, true));
     }
 
-    private static final class GiznazMobRenderer extends MobRenderer<GiznazEntity, ZombieModel<GiznazEntity>> {
+    private static final class GiznazMobRenderer extends MobRenderer<GiznazEntity, HumanoidModel<GiznazEntity>> {
         private GiznazMobRenderer(EntityRendererProvider.Context context) {
-            super(context, new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE)), 0.5F);
+            super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER)), 0.5F);
         }
 
         @Override
@@ -39,10 +40,10 @@ public final class GiznazRenderer {
         }
 
         @Override
-        public void render(GiznazEntity entity, float entityYaw, float partialTick,
-                           net.minecraft.client.renderer.MultiBufferSource buffer, int packedLight) {
+        public void render(GiznazEntity entity, float entityYaw, float partialTick, PoseStack poseStack,
+                           MultiBufferSource buffer, int packedLight) {
             this.model.crouching = entity.isShiftKeyDown();
-            super.render(entity, entityYaw, partialTick, buffer, packedLight);
+            super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
         }
     }
 }
