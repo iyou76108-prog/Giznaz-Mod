@@ -1,5 +1,6 @@
 package com.giznaz;
 
+import com.giznaz.registry.GiznazEntities;
 import com.giznaz.registry.GiznazItems;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -12,5 +13,6 @@ public final class GiznazMod {
     public GiznazMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         GiznazItems.register(modBus);
+        GiznazEntities.register(modBus);
     }
 }
