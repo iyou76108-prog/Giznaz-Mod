@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "giznaz:poop",
-    "minecraft:bone_meal"
+    { "item": "giznaz:poop" },
+    { "item": "minecraft:bone_meal" }
   ],
   "result": {
     "id": "giznaz:giznaz_fertilizer",
