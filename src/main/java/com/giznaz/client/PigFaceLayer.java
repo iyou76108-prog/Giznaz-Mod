@@ -47,7 +47,7 @@ public final class PigFaceLayer {
                            float netHeadYaw, float headPitch) {
             if (pig.isInvisible()) return;
 
-            faceModel.young = pig.isBaby();
+            faceModel.setYoung(pig.isBaby());
             faceModel.setupAnim(pig, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
             poseStack.pushPose();
@@ -82,6 +82,10 @@ public final class PigFaceLayer {
     private static final class ExposedPigModel extends PigModel<Pig> {
         private ExposedPigModel(ModelPart root) {
             super(root);
+        }
+
+        private void setYoung(boolean young) {
+            this.young = young;
         }
 
         private ModelPart faceHead() {
